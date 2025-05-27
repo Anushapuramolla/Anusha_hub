@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Local Community Event Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Internal CSS for styling -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0; padding: 0;
+        }
+        nav a {
+            margin: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            color: #0077cc;
+        }
+        #welcomeBanner {
+            background-color: #cce5ff;
+            padding: 15px;
+            text-align: center;
+        }
+        .highlight {
+            background-color: yellow;
+            font-style: italic;
+        }
+        .gallery img {
+            border: 3px solid #333;
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        caption {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        form {
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        input, select, textarea {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 8px;
+        }
+        video {
+            display: block;
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+        }
+        #confirmation, #feeDisplay, #videoMessage {
+            margin-top: 10px;
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+</head>
+<body onbeforeunload="return checkForm()">
+
+    <!-- Navigation -->
+    <header>
+        <h1>Local Community Event Portal</h1>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#events">Events</a>
+            <a href="#contact">Contact</a>
+            <a href="help.html" target="_blank">Help</a>
+        </nav>
+    </header>
+
+    <!-- Welcome Message -->
+    <div id="welcomeBanner">
+        Welcome, <span class="highlight">Resident</span>!
+        <span style="color: red; font-weight: bold;">Special discounts available!</span>
+    </div>
+
+    <!-- Main -->
+    <main>
+
+        <!-- Home Section -->
+        <section id="home">
+            <h2>Home</h2>
+            <p class="highlight">Your go-to portal for local events, registrations, and updates.</p>
+        </section>
+
+        <!-- Events Section -->
+        <section id="events">
+            <h2>Upcoming Events</h2>
+
+            <!-- Image Gallery -->
+            <table class="gallery">
+                <caption>Memories from Past Events</caption>
+                <tr>
+                    <td><img src="event1.jpg" alt="Music Festival" title="Music Festival" ondblclick="enlarge(this)"></td>
+                    <td><img src="event2.jpg" alt="Food Fair" title="Food Fair" ondblclick="enlarge(this)"></td>
+                    <td><img src="event3.jpg" alt="Art Show" title="Art Show" ondblclick="enlarge(this)"></td>
+                </tr>
+                <tr>
+                    <td><img src="event4.jpg" alt="Workshop" title="Workshop" ondblclick="enlarge(this)"></td>
+                    <td><img src="event5.jpg" alt="Yoga Session" title="Yoga Session" ondblclick="enlarge(this)"></td>
+                    <td><img src="event6.jpg" alt="Community Meet" title="Community Meet" ondblclick="enlarge(this)"></td>
+                </tr>
+            </table>
+
+            <!-- Registration Form -->
+            <form id="regForm" onsubmit="return showConfirmation()">
+                <h3>Register for an Event</h3>
+                <input type="text" name="name" placeholder="Your Name" required autofocus>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <input type="tel" name="phone" placeholder="Phone Number" onblur="validatePhone(this)">
+                <input type="date" name="date" required>
+                
+                <select name="eventType" onchange="savePreference(this)" id="eventType">
+                    <option value="">Select Event Type</option>
+                    <option value="music">Music</option>
+                    <option value="art">Art</option>
+                    <option value="tech">Tech</option>
+                </select>
+                
+                <div id="feeDisplay"></div>
+
+                <textarea name="message" placeholder="Any message?" onkeyup="countChars(this)"></textarea>
+                <div id="charCount">Characters: 0</div>
+
+                <button type="submit" onclick="storeData()">Submit</button>
+                <output id="confirmation"></output>
+            </form>
+
+            <button onclick="clearPreferences()">Clear Preferences</button>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2>Contact Us</h2>
+            <p>Email: info@cityevents.com | Phone: 123-456-7890</p>
+        </section>
+
+        <!-- Video Promo -->
+        <section>
+            <h2>Event Promo Video</h2>
+            <video controls oncanplay="document.getElementById('videoMessage').innerText='Video ready to play'">
+                <source src="promo.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <p id="videoMessage"></p>
+        </section>
+
+        <!-- Geolocation -->
+        <section>
+            <h2>Find Nearby Events</h2>
+            <button onclick="getLocation()">Find Nearby Events</button>
+            <p id="locationOutput"></p>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Local City Council. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript for Interaction -->
+    <script>
+        function showConfirmation() {
+            document.getElementById("confirmation").value = "Thanks for registering!";
+            return false; // prevent form submission for demo
+        }
+
+        function validatePhone(input) {
+            const pattern = /^[0-9]{10}$/;
+            if (!pattern.test(input.value)) {
+                alert("Phone number must be 10 digits.");
+                input.focus();
+            }
+        }
+
+        function countChars(textarea) {
+            document.getElementById("charCount").innerText = "Characters: " + textarea.value.length;
+        }
+
+        function enlarge(img) {
+            img.style.width = "100%";
+            img.style.border = "5px solid red";
+        }
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError, {
+                    enableHighAccuracy: true,
+                    timeout: 10000
+                });
+            } else {
+                document.getElementById("locationOutput").innerText = "Geolocation not supported.";
+            }
+        }
+
+        function showPosition(position) {
+            document.getElementById("locationOutput").innerText = 
+                "Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude;
+        }
+
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("Location access denied.");
+                    break;
+                case error.TIMEOUT:
+                    alert("Request timed out.");
+                    break;
+            }
+        }
+
+        function savePreference(select) {
+            const value = select.value;
+            if (value) {
+                localStorage.setItem("preferredEvent", value);
+                document.getElementById("feeDisplay").innerText = "Fee: $" + (value === "tech" ? "30" : "20");
+            }
+        }
+
+        function storeData() {
+            sessionStorage.setItem("formStarted", "true");
+        }
+
+        function clearPreferences() {
+            localStorage.clear();
+            sessionStorage.clear();
+            alert("Preferences cleared.");
+        }
+
+        function checkForm() {
+            if (sessionStorage.getItem("formStarted")) {
+                return "You have unsaved changes. Are you sure you want to leave?";
+            }
+        }
+
+        // Pre-select saved preference
+        window.onload = () => {
+            const pref = localStorage.getItem("preferredEvent");
+            if (pref) {
+                const select = document.getElementById("eventType");
+                select.value = pref;
+                document.getElementById("feeDisplay").innerText = "Fee: $" + (pref === "tech" ? "30" : "20");
+            }
+        };
+    </script>
+
+</body>
+</html>
