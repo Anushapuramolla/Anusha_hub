@@ -1,0 +1,209 @@
+/* ==========================
+   Global Reset
+   ========================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ==========================
+   Header Styles
+   ========================== */
+#mainHeader {
+  background-color: #003366;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Style for main CTA button */
+.cta-button {
+  background-color: #007BFF;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+}
+
+
+/* Universal Selector for Reset */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* Element Selector */
+h2 {
+  font-size: 24px;
+  color: #333;
+}
+
+/* ID Selector */
+#mainHeader {
+  background-color: #004080;
+  color: white;
+  padding: 10px;
+}
+
+/* Class Selector */
+.eventCard {
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin: 10px;
+  background-color: #f9f9f9;
+}
+
+/* Grouping Selector */
+h3, p {
+  font-family: Arial, sans-serif;
+  margin-bottom: 10px;
+}
+
+/* Background Image with Fallback */
+body {
+  background: #e0f7fa url('cityscape.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+/* Using HEX and RGBA */
+h2 {
+  color: #00695c;
+}
+
+.eventCard {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Gradient Background for Section Headers */
+#mainHeader {
+  background: linear-gradient(to right, #0066cc, #3399ff);
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.6;
+}
+
+h2 {
+  font-size: 28px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+p.description {
+  font-size: 16px;
+  text-align: justify;
+}
+
+/* Link Styling */
+a:link {
+  color: #007BFF;
+}
+
+a:visited {
+  color: #5a5a5a;
+}
+
+a:hover {
+  color: #0056b3;
+}
+
+a:active {
+  color: red;
+}
+
+/* List Styling */
+ul.nav {
+  list-style-type: none;
+  list-style-position: inside;
+  padding: 0;
+}
+
+ul.nav li {
+  padding: 10px;
+  margin: 5px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+/* Zebra Striping */
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.eventCard {
+  margin: 20px;
+  padding: 15px;
+  border: 2px solid #ccc;
+  outline: 2px dashed #ff9800;
+}
+
+/* Visibility comparison */
+.hiddenElement {
+  visibility: hidden;
+}
+
+.removedElement {
+  display: none;
+}
+.news-article {
+  column-count: 2;
+  column-gap: 30px;
+  column-rule: 1px solid gray;
+}
+
+.news-article {
+  column-count: 2;
+  column-gap: 30px;
+  column-rule: 1px solid gray;
+}
+
+/* Base Layout */
+nav ul {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* Responsive Media Query */
+@media screen and (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+
+  body {
+    font-size: 14px;
+  }
+}
+
+/*11. Debugging with DevTools
+No code required — here’s how to debug:
+
+Use Chrome DevTools > Device Toolbar (Ctrl+Shift+M) to test responsiveness.
+
+Inspect styles to check which rules are applied or overridden.
+
+Network tab ensures styles.css is loaded (look for 200 status).
+
+Use "Elements" tab to live-edit HTML/CSS and fix issues instantly.*/
+
+
+
+
